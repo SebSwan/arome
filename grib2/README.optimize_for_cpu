@@ -1,0 +1,27 @@
+12/2020       Optimize for a specific CPU
+
+The wgrib2's makefile assumes a generic CPU.  For 64-bit AMD or Intel 
+cpus on a 64-bit OS, that means wgrib2 will be compiled for the 64-bit 
+instruction set first introduced by AMD in 1999.  That means the latest 
+instructions like AVX-512, AVX2 or even AVX will not be used.  The 
+avantage of using the older older instructions is that you can copy
+the executeable to from, for example, from one RedHat 7 machine to
+another RedHat 7 machine and expect the executable to work.  The
+disadvantage is that wgrib2 may be slower because of the more primative
+SIMD instructions.  However speeding up wgrib2 is limited because
+
+  (1) wgrib2 is limited by I/O speeds
+  (2) wgrib2 uses OpenMP to speed up loops which is the same code
+      that is sped up by the SIMD instructions.  In theory OpenMP
+      can speed up code by multple cores running SIMD instructions
+      but the current compilers have limited ablity to do that on
+      one dimensional arrays.
+
+
+If you want to try optimizing wgrib2, add the following before compiling
+
+export CFFLAGS=-march=(cpu)
+export FFLAGS=-march=(cpu)
+export CC=C-compiler
+export FC=Fortran-compiler
+make

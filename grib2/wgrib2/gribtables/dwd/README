@@ -1,0 +1,22 @@
+Source of gribtable
+
+   reference: http://www.cosmo-model.org/content/consortium/generalMeetings/general2019/wg6/GRIB2-for-DUMMIES.pdf
+   download file: https://opendata.dwd.de/weather/lib/grib/definitions.edzw-2.19.0-2
+
+In tarball locate
+   definitions.edzw-2.19.0-2/grib2/shortName.def
+
+cd to the directory with shortName.def, and run
+    dwd2tab.pl
+
+This script will read shortName.def and amke dwd_gribtable
+
+Convert dwd_gribtable to C code by make_gribtable.sh
+put results in grib2/wgrib2/gribtables/dwd/dwd_gribtable.dat
+
+check for duplicates
+   ../../check_dup_gribtable.sh dwd_gribtable
+wgrib2 v3.0.1 : removed CDCT .. defined cloud type and cloud top
+		SM (soil moisture) defined twice, set_var should default to new/good version
+		TSEC defined twice
+

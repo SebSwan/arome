@@ -1,0 +1,10 @@
+1/29/2021:
+
+./get_gribtab.sh
+mv gribtab gribtable
+
+no other changes
+diff gribtable.dat gribtable.dat.1.2018 only shows additions
+../../check_dup_gribtable.sh show no duplicates
+
+No manual changes!!! did cleanuped webpages or Manfred's new download script fix the problems?
